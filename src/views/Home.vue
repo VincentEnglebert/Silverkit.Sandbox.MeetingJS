@@ -1,18 +1,43 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="container px-4">
+    <agenda-event-holder>
+      <agenda-event></agenda-event>
+    </agenda-event-holder>
+
+    <agenda-event-holder>
+      <agenda-event></agenda-event>
+    </agenda-event-holder>
+
+    <agenda-event-holder>
+      <agenda-event></agenda-event>
+      <agenda-event></agenda-event>
+    </agenda-event-holder>
+
+    <agenda-event-holder>
+      <agenda-event></agenda-event>
+      <agenda-event></agenda-event>
+      <agenda-event></agenda-event>
+    </agenda-event-holder>
+
+    <agenda-event-holder>
+      <agenda-event></agenda-event>
+    </agenda-event-holder>
+
+    <agenda-event-holder>
+      <agenda-event></agenda-event>
+    </agenda-event-holder>
+
+    <agenda-separator></agenda-separator>
+    <agenda-event></agenda-event>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import AgendaSeparator from "@/components/AgendaSeperator";
+import AgendaEvent from "@/components/AgendaEvent";
+import AgendaEventHolder from "@/components/AgendaEventHolder";
 
 export default {
-  name: 'home',
-  components: {
-    HelloWorld
-  }
-}
+  components: { AgendaSeparator, AgendaEvent, AgendaEventHolder }
+};
 </script>
