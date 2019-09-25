@@ -7,6 +7,7 @@ import "./registerServiceWorker";
 import "@/assets/css/app.css";
 
 import "@/silverkit/ClickListener.js";
+import "@/silverkit/GyroscopeListener.js";
 
 Vue.config.productionTip = false;
 

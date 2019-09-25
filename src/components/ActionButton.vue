@@ -11,10 +11,10 @@ export default {
 
   methods: {
     increaseTextSize(element) {
-      var style = window
+      const style = window
         .getComputedStyle(element, null)
         .getPropertyValue("font-size");
-      var fontSize = parseFloat(style);
+      const fontSize = parseFloat(style);
       element.style.fontSize = fontSize + 0.05 * fontSize + "px";
     }
   }
