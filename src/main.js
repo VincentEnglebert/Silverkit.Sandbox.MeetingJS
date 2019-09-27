@@ -8,6 +8,7 @@ import "@/assets/css/app.css";
 
 import "@/silverkit/ClickListener.js";
 import "@/silverkit/GyroscopeListener.js";
+import "@/silverkit/FeedbackAnalysis.js";
 
 Vue.config.productionTip = false;
 

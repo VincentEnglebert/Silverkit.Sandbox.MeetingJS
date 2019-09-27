@@ -53,11 +53,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const isClickInsideElementBounds = closestElement === event.target;
 
+    let resultClick = null;
+
     if (isClickInsideElementBounds) {
-      console.log("HIT !");
+      resultClick = "Hit";
     } else {
-      console.log("MISS ! by " + closestElementDistance);
+      resultClick = "Miss";
     }
+
+    let log = `Time: ${Date.now()} \nType: Cick\nTarget: ${resultClick}\nDistanceFromTargetCenter: ${closestElementDistance}`;
+
+    console.log(log);
 
     // What relative distance to the element size can be considered as to far to be
     // taken into account ?

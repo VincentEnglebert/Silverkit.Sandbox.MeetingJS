@@ -1,5 +1,5 @@
 // eslint-disable-next-line no-unused-vars
-class SilverKitTaskTimeTracker {
+export default class SilverKitTaskTimeTracker {
   constructor(taskName) {
     this.taskName = taskName;
   }
