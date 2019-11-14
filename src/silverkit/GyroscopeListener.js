@@ -9,8 +9,8 @@ function handleOrientation(event) {
   console.log(beta);
   console.log(gamma);
 
-  document.getElementById("mobile").textContent =
-    alpha + ", " + beta + ", " + gamma;
+  // document.getElementById("mobile").textContent =
+  //  alpha + ", " + beta + ", " + gamma;
 }
 
 document.addEventListener("DOMContentLoaded", () => {
