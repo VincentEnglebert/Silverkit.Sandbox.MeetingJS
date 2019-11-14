@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class="h-screen bg-gray-200">
+  <div id="app" class="h-full bg-gray-200">
     <navigation></navigation>
     <router-view />
   </div>
@@ -12,4 +12,3 @@ export default {
   components: { Navigation }
 };
 </script>
-
