@@ -2,11 +2,15 @@
   <div class="container px-4">
     <p id="mobile"></p>
 
-    <Calendar
-      :eventCategories="eventCategories"
-      :events="events"
-      ref="calendar"
-    />
+    <div class="bg-white rounded shadow mb-4">
+      <Calendar
+        :eventCategories="eventCategories"
+        :events="events"
+        ref="calendar"
+      />
+    </div>
+
+    <h2 class="font-semibold text-lg text-gray-900">Events</h2>
 
     <agenda-event-holder>
       <agenda-event></agenda-event>
