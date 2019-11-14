@@ -1,12 +1,25 @@
-if (window.DeviceOrientationEvent) {
-  // eslint-disable-next-line no-undef
-  const gyroscope = new Gyroscope({ frequency: 60 });
+function handleOrientation(event) {
+  let absolute = event.absolute;
+  let alpha = event.alpha;
+  let beta = event.beta;
+  let gamma = event.gamma;
 
-  gyroscope.addEventListener("reading", () => {
-    console.log("Angular velocity along the X-axis " + gyroscope.x);
-    console.log("Angular velocity along the Y-axis " + gyroscope.y);
-    console.log("Angular velocity along the Z-axis " + gyroscope.z);
-  });
+  console.log(absolute);
+  console.log(alpha);
+  console.log(beta);
+  console.log(gamma);
 
-  gyroscope.start();
+  document.getElementById("mobile").textContent =
+    alpha + ", " + beta + ", " + gamma;
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+  if (window.DeviceOrientationEvent) {
+    console.log("DeviceOrientationEvent is supported");
+    window.addEventListener("deviceorientation", handleOrientation, true);
+  } else {
+    console.log("DeviceOrientationEvent is not supported");
+    document.getElementById("mobile").textContent = "not supported!";
+    window.addEventListener("deviceorientation", handleOrientation, true);
+  }
+});

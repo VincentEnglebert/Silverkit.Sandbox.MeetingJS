@@ -25,7 +25,7 @@
             class="no-underline block mt-4 sm:inline-block sm:mt-0 text-teal-lighter hover:text-white mr-4"
           >Home</router-link>
           <router-link
-            to="/"
+            to="/about"
             class="no-underline block mt-4 sm:inline-block sm:mt-0 text-teal-lighter hover:text-white mr-4"
           >About</router-link>
         </div>

@@ -65,7 +65,32 @@ document.addEventListener("DOMContentLoaded", () => {
 
     console.log(log);
 
-    // What relative distance to the element size can be considered as to far to be
-    // taken into account ?
+    // Logic that shouldn't be here
+
+    if (!isClickInsideElementBounds) {
+      // Check if it's part of a click group
+      const group = closestElement.dataset.skIntentClickGroup;
+
+      if (group) {
+        // If it is, we update all the group at once
+        const groupElements = document.querySelectorAll(
+          `[data-sk-intent-click-group=${group}]`
+        );
+        groupElements.forEach(element => {
+          increaseTextSize(element);
+        });
+      } else {
+        // Else we only update the element
+        increaseTextSize(closestElement);
+      }
+    }
   });
 });
+
+function increaseTextSize(element) {
+  const style = window
+    .getComputedStyle(element, null)
+    .getPropertyValue("font-size");
+  const fontSize = parseFloat(style);
+  element.style.fontSize = fontSize + 0.05 * fontSize + "px";
+}
