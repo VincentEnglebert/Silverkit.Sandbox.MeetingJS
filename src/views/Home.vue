@@ -21,11 +21,13 @@
       <agenda-event></agenda-event>
     </agenda-event-holder>
 
+    <!--
     <agenda-event-holder>
       <agenda-event></agenda-event>
       <agenda-event></agenda-event>
       <agenda-event></agenda-event>
     </agenda-event-holder>
+-->
 
     <agenda-event-holder>
       <agenda-event></agenda-event>
