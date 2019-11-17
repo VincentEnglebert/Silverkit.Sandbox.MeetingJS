@@ -51,6 +51,9 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
 
+    // If nothing is found, abort.
+    if (!closestElement) return;
+
     const isClickInsideElementBounds = closestElement === event.target;
 
     let resultClick = null;

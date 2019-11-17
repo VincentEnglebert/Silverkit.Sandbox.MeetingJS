@@ -1,5 +1,8 @@
 <template>
-  <div class="shadow bg-white rounded p-4 my-2 w-full">
+  <div
+    class="shadow bg-white rounded p-4 my-2 w-full border-b-4"
+    :style="{ 'border-bottom-color' : category.backgroundColor }"
+  >
     <div class="flex justify-between">
       <div>
         <h1 class="text-gray-800 font-semibold">Event name</h1>
@@ -16,6 +19,23 @@
 import ActionButton from "@/components/ActionButton";
 
 export default {
-  components: { ActionButton }
+  components: { ActionButton },
+
+  props: {
+    category: {
+      type: Object,
+      default() {
+        return {
+          id: 0,
+          title: "default-category",
+          textColor: "black",
+          backgroundColor: "#dee2e5"
+        };
+      }
+    },
+    event: {
+      type: Object
+    }
+  }
 };
 </script>

@@ -1,8 +1,6 @@
 <template>
-  <div class="container px-4">
-    <p id="mobile"></p>
-
-    <div class="bg-white rounded shadow mb-4">
+  <div>
+    <div class="bg-white border-b-2 border-gray-300">
       <Calendar
         :eventCategories="eventCategories"
         :events="events"
@@ -10,39 +8,44 @@
       />
     </div>
 
-    <h2 class="font-semibold text-lg text-gray-900">Events</h2>
+    <div class="container px-4 pt-4">
+      <h2 class="font-semibold text-lg text-gray-900">Events</h2>
 
+      <agenda-event-holder>
+        <agenda-event :category="eventCategories[1]"></agenda-event>
+      </agenda-event-holder>
+
+      <agenda-event-holder>
+        <agenda-event></agenda-event>
+      </agenda-event-holder>
+
+      <agenda-event-holder>
+        <!--
+<agenda-event></agenda-event>-->
+        <agenda-event></agenda-event>
+      </agenda-event-holder>
+
+      <!--
     <agenda-event-holder>
       <agenda-event></agenda-event>
-    </agenda-event-holder>
-
-    <agenda-event-holder>
-      <agenda-event></agenda-event>
-    </agenda-event-holder>
-
-    <agenda-event-holder>
       <agenda-event></agenda-event>
       <agenda-event></agenda-event>
     </agenda-event-holder>
+    -->
 
-    <!--
-    <agenda-event-holder>
-      <agenda-event></agenda-event>
-      <agenda-event></agenda-event>
-      <agenda-event></agenda-event>
-    </agenda-event-holder>
--->
+      <agenda-event-holder>
+        <agenda-event></agenda-event>
+      </agenda-event-holder>
 
-    <agenda-event-holder>
-      <agenda-event></agenda-event>
-    </agenda-event-holder>
+      <agenda-event-holder>
+        <agenda-event></agenda-event>
+      </agenda-event-holder>
 
-    <agenda-event-holder>
+      <agenda-separator></agenda-separator>
       <agenda-event></agenda-event>
-    </agenda-event-holder>
+    </div>
 
-    <agenda-separator></agenda-separator>
-    <agenda-event></agenda-event>
+    <agenda-add-event :date="selectedDate"></agenda-add-event>
   </div>
 </template>
 
@@ -51,9 +54,18 @@ import AgendaSeparator from "@/components/AgendaSeperator";
 import AgendaEvent from "@/components/AgendaEvent";
 import AgendaEventHolder from "@/components/AgendaEventHolder";
 import Calendar from "@/components/Calendar.vue";
+import AgendaAddEvent from "@/components/AgendaAddEvent";
+
+import moment from "moment";
 
 export default {
-  components: { AgendaSeparator, AgendaEvent, AgendaEventHolder, Calendar },
+  components: {
+    AgendaSeparator,
+    AgendaEvent,
+    AgendaEventHolder,
+    Calendar,
+    AgendaAddEvent
+  },
 
   data() {
     return {
@@ -68,7 +80,7 @@ export default {
           id: 2,
           title: "Company-wide",
           textColor: "white",
-          backgroundColor: "red"
+          backgroundColor: "#e85c66"
         }
       ],
       events: [
@@ -101,7 +113,7 @@ export default {
           categoryId: 2
         }
       ],
-      selectedDate: {}
+      selectedDate: moment()
     };
   },
 
@@ -109,9 +121,6 @@ export default {
     goToday() {
       this.$refs.calendar.goToday();
     }
-    // setDate(date) {
-    //   this.selectedDate = date;
-    // }
   }
 };
 </script>
