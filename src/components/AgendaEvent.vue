@@ -1,7 +1,7 @@
 <template>
   <div
     class="shadow bg-white rounded p-4 my-2 w-full border-b-4"
-    :style="{ 'border-bottom-color' : category.backgroundColor }"
+    :style="{ 'border-bottom-color': category.backgroundColor }"
   >
     <div class="flex justify-between">
       <div>
@@ -9,7 +9,7 @@
         <span class="text-gray-500 uppercase text-xs">hours</span>
       </div>
       <div class="flex items-center">
-        <action-button text="Edit"></action-button>
+        <action-button text="Détails"></action-button>
       </div>
     </div>
   </div>
