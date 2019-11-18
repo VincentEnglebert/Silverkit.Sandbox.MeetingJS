@@ -10,6 +10,8 @@ import "@/silverkit/ClickListener.js";
 import "@/silverkit/GyroscopeListener.js";
 import "@/silverkit/FeedbackAnalysis.js";
 
+import "@/moment.config.js";
+
 Vue.config.productionTip = false;
 
 new Vue({

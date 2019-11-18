@@ -5,6 +5,8 @@
         :eventCategories="eventCategories"
         :events="events"
         ref="calendar"
+        :selectedDate="selectedDate"
+        @setDate="setDate"
       />
     </div>
 
@@ -55,8 +57,6 @@ import AgendaEvent from "@/components/AgendaEvent";
 import AgendaEventHolder from "@/components/AgendaEventHolder";
 import Calendar from "@/components/Calendar.vue";
 import AgendaAddEvent from "@/components/AgendaAddEvent";
-
-import moment from "moment";
 
 export default {
   components: {
@@ -113,13 +113,17 @@ export default {
           categoryId: 2
         }
       ],
-      selectedDate: moment()
+      selectedDate: null
     };
   },
 
   methods: {
     goToday() {
       this.$refs.calendar.goToday();
+    },
+
+    setDate(date) {
+      this.selectedDate = date;
     }
   }
 };

@@ -1,4 +1,3 @@
-
 <template>
   <div id="sweetCalendar">
     <div class="container calendar">
@@ -17,23 +16,31 @@
           :key="`day-name-${index + 1}`"
           class="day-name"
           :title="day"
-        >{{ day[0] }}</div>
-        <div v-for="(day,index) in days" :key="index" class="day-container">
-          <div class="before" v-if="day" :style="generateBeforeStyle(day)">&nbsp;</div>
+        >
+          {{ day[0] }}
+        </div>
+        <div v-for="(day, index) in days" :key="index" class="day-container">
+          <div class="before" v-if="day" :style="generateBeforeStyle(day)">
+            &nbsp;
+          </div>
           <div
             v-if="day"
             :class="[
-            'day',
-            `day-${day.getDate()},
+              'day',
+              `day-${day.getDate()},
             weekday-${day.getDay()}`,
-            offDays.includes(day.getDay()) ? 'off-day' : null,
-            day.toDateString() === today.toDateString() ? 'today' : null
+              offDays.includes(day.getDay()) ? 'off-day' : null,
+              day.toDateString() === today.toDateString() ? 'today' : null,
+              isSelected(day) ? 'selected' : null
             ]"
             :style="generateDayStyle(day)"
+            @click="selectDay(day)"
           >
             <span>{{ day.getDate() }}</span>
           </div>
-          <div class="after" v-if="day" :style="generateAfterStyle(day)">&nbsp;</div>
+          <div class="after" v-if="day" :style="generateAfterStyle(day)">
+            &nbsp;
+          </div>
         </div>
       </div>
     </div>
@@ -42,6 +49,7 @@
 
 <script>
 import DateTime from "../DateTime.js";
+import moment from "moment";
 
 export default {
   name: "Calendar",
@@ -156,6 +164,19 @@ export default {
     },
     goToday() {
       this.date = this.today;
+    },
+    selectDay(day) {
+      this.$emit("setDate", moment(day.toISOString()));
+    },
+    isSelected(day) {
+      if (!this.selectedDate) {
+        return false;
+      }
+
+      return (
+        moment(day.toISOString()).format("dddd D MMMM") ===
+        this.selectedDate.format("dddd D MMMM")
+      );
     }
   },
   props: {
@@ -184,6 +205,10 @@ export default {
       default() {
         return [1, 7];
       }
+    },
+    selectedDate: {
+      type: Object,
+      default: null
     }
   },
   beforeMount() {
