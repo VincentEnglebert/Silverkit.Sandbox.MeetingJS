@@ -5,8 +5,8 @@
   >
     <div class="flex justify-between">
       <div>
-        <h1 class="text-gray-800 font-semibold">Event name</h1>
-        <span class="text-gray-500 uppercase text-xs">hours</span>
+        <h1 class="text-gray-800 font-semibold">{{ event.title }}</h1>
+        <span class="text-gray-500 uppercase text-xs">11h45 - 12h20</span>
       </div>
       <div class="flex items-center">
         <action-button text="Détails"></action-button>

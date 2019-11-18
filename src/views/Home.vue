@@ -14,37 +14,11 @@
       <h2 class="font-semibold text-lg text-gray-900">Events</h2>
 
       <agenda-event-holder>
-        <agenda-event :category="eventCategories[1]"></agenda-event>
+        <agenda-event
+          :category="eventCategories[1]"
+          :event="events[0]"
+        ></agenda-event>
       </agenda-event-holder>
-
-      <agenda-event-holder>
-        <agenda-event></agenda-event>
-      </agenda-event-holder>
-
-      <agenda-event-holder>
-        <!--
-<agenda-event></agenda-event>-->
-        <agenda-event></agenda-event>
-      </agenda-event-holder>
-
-      <!--
-    <agenda-event-holder>
-      <agenda-event></agenda-event>
-      <agenda-event></agenda-event>
-      <agenda-event></agenda-event>
-    </agenda-event-holder>
-    -->
-
-      <agenda-event-holder>
-        <agenda-event></agenda-event>
-      </agenda-event-holder>
-
-      <agenda-event-holder>
-        <agenda-event></agenda-event>
-      </agenda-event-holder>
-
-      <agenda-separator></agenda-separator>
-      <agenda-event></agenda-event>
     </div>
 
     <agenda-add-event :date="selectedDate"></agenda-add-event>
@@ -85,12 +59,13 @@ export default {
       ],
       events: [
         {
-          title: "test1",
-          start: "2019-04-02",
-          end: "2019-04-04",
+          title: "The great event",
+          start: "2019-11-04 11:45",
+          end: "2019-11-04 12:20",
           repeat: "never",
           categoryId: 1
-        },
+        }
+        /*
         {
           title: "test2",
           start: "2019-04-08",
@@ -112,6 +87,7 @@ export default {
           repeat: "monthly",
           categoryId: 2
         }
+        */
       ],
       selectedDate: null
     };
