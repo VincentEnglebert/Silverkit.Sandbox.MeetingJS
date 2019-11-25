@@ -14,31 +14,32 @@
       <h2 class="font-semibold text-lg text-gray-900">Events</h2>
 
       <agenda-event-holder>
-        <agenda-event
-          :category="eventCategories[1]"
-          :event="events[0]"
-        ></agenda-event>
+        <agenda-event :category="eventCategories[1]" :event="events[0]"></agenda-event>
       </agenda-event-holder>
     </div>
 
-    <agenda-add-event :date="selectedDate"></agenda-add-event>
+    <agenda-add-event @addEvent="toggleModalAddEvent" :date="selectedDate"></agenda-add-event>
+
+    <agenda-add-event-modal :isOpen="isModalOpen" @close="toggleModalAddEvent" :date="selectedDate"></agenda-add-event-modal>
   </div>
 </template>
 
 <script>
-import AgendaSeparator from "@/components/AgendaSeperator";
+// import AgendaSeparator from "@/components/AgendaSeperator";
 import AgendaEvent from "@/components/AgendaEvent";
 import AgendaEventHolder from "@/components/AgendaEventHolder";
 import Calendar from "@/components/Calendar.vue";
 import AgendaAddEvent from "@/components/AgendaAddEvent";
+import AgendaAddEventModal from "../components/AgendaAddEventModal";
 
 export default {
   components: {
-    AgendaSeparator,
+    // AgendaSeparator,
     AgendaEvent,
     AgendaEventHolder,
     Calendar,
-    AgendaAddEvent
+    AgendaAddEvent,
+    AgendaAddEventModal
   },
 
   data() {
@@ -89,7 +90,8 @@ export default {
         }
         */
       ],
-      selectedDate: null
+      selectedDate: null,
+      isModalOpen: false
     };
   },
 
@@ -100,6 +102,10 @@ export default {
 
     setDate(date) {
       this.selectedDate = date;
+    },
+
+    toggleModalAddEvent() {
+      this.isModalOpen = !this.isModalOpen;
     }
   }
 };

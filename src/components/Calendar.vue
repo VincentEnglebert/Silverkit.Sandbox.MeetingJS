@@ -16,13 +16,9 @@
           :key="`day-name-${index + 1}`"
           class="day-name"
           :title="day"
-        >
-          {{ day[0] }}
-        </div>
+        >{{ day[0] }}</div>
         <div v-for="(day, index) in days" :key="index" class="day-container">
-          <div class="before" v-if="day" :style="generateBeforeStyle(day)">
-            &nbsp;
-          </div>
+          <div class="before" v-if="day" :style="generateBeforeStyle(day)">&nbsp;</div>
           <div
             v-if="day"
             :class="[
@@ -31,16 +27,17 @@
             weekday-${day.getDay()}`,
               offDays.includes(day.getDay()) ? 'off-day' : null,
               day.toDateString() === today.toDateString() ? 'today' : null,
-              isSelected(day) ? 'selected' : null
+              isSelected(day) ? 'selected' : null,
+              'transition-all',
+              'transition-faster',
+              'ease-out'
             ]"
             :style="generateDayStyle(day)"
             @click="selectDay(day)"
           >
             <span>{{ day.getDate() }}</span>
           </div>
-          <div class="after" v-if="day" :style="generateAfterStyle(day)">
-            &nbsp;
-          </div>
+          <div class="after" v-if="day" :style="generateAfterStyle(day)">&nbsp;</div>
         </div>
       </div>
     </div>
@@ -223,3 +220,4 @@ export default {
 <style lang="sass" scoped>
 @import '../styles/index.sass'
 </style>
+
