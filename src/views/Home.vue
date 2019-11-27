@@ -14,7 +14,12 @@
       <h2 class="font-semibold text-lg text-gray-900">Events</h2>
 
       <agenda-event-holder>
-        <agenda-event :category="eventCategories[1]" :event="events[0]"></agenda-event>
+        <agenda-event
+          v-for="(event, index) in todayEvents"
+          :key="index"
+          :category="eventCategories[1]"
+          :event="event"
+        ></agenda-event>
       </agenda-event-holder>
     </div>
 
@@ -31,6 +36,8 @@ import AgendaEventHolder from "@/components/AgendaEventHolder";
 import Calendar from "@/components/Calendar.vue";
 import AgendaAddEvent from "@/components/AgendaAddEvent";
 import AgendaAddEventModal from "../components/AgendaAddEventModal";
+
+import moment from "moment";
 
 export default {
   components: {
@@ -61,8 +68,8 @@ export default {
       events: [
         {
           title: "The great event",
-          start: "2019-11-04 11:45",
-          end: "2019-11-04 12:20",
+          start: new Date("2019-11-04 11:45"),
+          end: new Date("2019-11-04 12:20"),
           repeat: "never",
           categoryId: 1
         }
@@ -93,6 +100,16 @@ export default {
       selectedDate: null,
       isModalOpen: false
     };
+  },
+
+  computed: {
+    todayEvents() {
+      let selection = this.selectedDate || moment();
+
+      return this.events.filter(event => {
+        return selection.isBetween(event.start, event.end, "days", "[]");
+      });
+    }
   },
 
   methods: {
