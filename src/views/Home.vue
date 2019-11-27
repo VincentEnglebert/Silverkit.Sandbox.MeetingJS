@@ -19,6 +19,12 @@
           :event="event"
         ></agenda-event>
       </agenda-event-holder>
+
+      <div v-if="todayEvents.length == 0" class="flex justify-center my-4">
+        <span class="text-lg text-gray-700 font-semibold tracking-wider"
+          >Auncun évènement</span
+        >
+      </div>
     </div>
 
     <agenda-add-event
@@ -71,46 +77,7 @@ export default {
           backgroundColor: "#e85c66"
         }
       ],
-      events: [
-        /*
-        {
-          title: "Présentation SilverKit UTAN",
-          start: new Date("2019-11-27 14:00"),
-          end: new Date("2019-11-27 16:00"),
-          repeat: "never",
-          categoryId: 1
-        },
-        {
-          title: "The great event",
-          start: new Date("2019-11-27 11:45"),
-          end: new Date("2019-11-27 12:20"),
-          repeat: "never",
-          categoryId: 1
-        }
-        /*
-        {
-          title: "test2",
-          start: "2019-04-08",
-          end: "2019-04-09",
-          repeat: "monthly",
-          categoryId: 1
-        },
-        {
-          title: "test3",
-          start: "2019-04-10",
-          end: "2019-04-11",
-          repeat: "yearly",
-          categoryId: 2
-        },
-        {
-          title: "test4",
-          start: "2019-04-23",
-          end: "2019-04-23",
-          repeat: "monthly",
-          categoryId: 2
-        }
-        */
-      ],
+      events: [],
       selectedDate: null,
       isModalOpen: false
     };
@@ -143,6 +110,25 @@ export default {
   created() {
     axios.get("http://127.0.0.1:8000/api/events").then(response => {
       this.events = response.data.data;
+
+      if ((this.events.length = 0)) {
+        this.events = [
+          {
+            title: "Présentation SilverKit UTAN",
+            start: new Date("2019-11-27 14:00"),
+            end: new Date("2019-11-27 16:00"),
+            repeat: "never",
+            categoryId: 1
+          },
+          {
+            title: "The great event",
+            start: new Date("2019-11-27 11:45"),
+            end: new Date("2019-11-27 12:20"),
+            repeat: "never",
+            categoryId: 1
+          }
+        ];
+      }
     });
   }
 };
