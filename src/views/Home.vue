@@ -13,19 +13,24 @@
     <div class="container px-4 pt-4">
       <h2 class="font-semibold text-lg text-gray-900">Events</h2>
 
-      <agenda-event-holder>
+      <agenda-event-holder v-for="(event, index) in todayEvents" :key="index">
         <agenda-event
-          v-for="(event, index) in todayEvents"
-          :key="index"
           :category="eventCategories[1]"
           :event="event"
         ></agenda-event>
       </agenda-event-holder>
     </div>
 
-    <agenda-add-event @addEvent="toggleModalAddEvent" :date="selectedDate"></agenda-add-event>
+    <agenda-add-event
+      @addEvent="toggleModalAddEvent"
+      :date="selectedDate"
+    ></agenda-add-event>
 
-    <agenda-add-event-modal :isOpen="isModalOpen" @close="toggleModalAddEvent" :date="selectedDate"></agenda-add-event-modal>
+    <agenda-add-event-modal
+      :isOpen="isModalOpen"
+      @close="toggleModalAddEvent"
+      :date="selectedDate"
+    ></agenda-add-event-modal>
   </div>
 </template>
 
@@ -38,6 +43,7 @@ import AgendaAddEvent from "@/components/AgendaAddEvent";
 import AgendaAddEventModal from "../components/AgendaAddEventModal";
 
 import moment from "moment";
+import axios from "axios";
 
 export default {
   components: {
@@ -66,10 +72,18 @@ export default {
         }
       ],
       events: [
+        /*
+        {
+          title: "Présentation SilverKit UTAN",
+          start: new Date("2019-11-27 14:00"),
+          end: new Date("2019-11-27 16:00"),
+          repeat: "never",
+          categoryId: 1
+        },
         {
           title: "The great event",
-          start: new Date("2019-11-04 11:45"),
-          end: new Date("2019-11-04 12:20"),
+          start: new Date("2019-11-27 11:45"),
+          end: new Date("2019-11-27 12:20"),
           repeat: "never",
           categoryId: 1
         }
@@ -107,7 +121,7 @@ export default {
       let selection = this.selectedDate || moment();
 
       return this.events.filter(event => {
-        return selection.isBetween(event.start, event.end, "days", "[]");
+        return selection.isBetween(event.start_at, event.end_at, "days", "[]");
       });
     }
   },
@@ -124,6 +138,12 @@ export default {
     toggleModalAddEvent() {
       this.isModalOpen = !this.isModalOpen;
     }
+  },
+
+  created() {
+    axios.get("http://127.0.0.1:8000/api/events").then(response => {
+      this.events = response.data.data;
+    });
   }
 };
 </script>
