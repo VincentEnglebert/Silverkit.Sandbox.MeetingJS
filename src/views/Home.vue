@@ -14,29 +14,17 @@
       <h2 class="font-semibold text-lg text-gray-900">Events</h2>
 
       <agenda-event-holder v-for="(event, index) in todayEvents" :key="index">
-        <agenda-event
-          :category="eventCategories[1]"
-          :event="event"
-        ></agenda-event>
+        <agenda-event :category="eventCategories[1]" :event="event"></agenda-event>
       </agenda-event-holder>
 
       <div v-if="todayEvents.length == 0" class="flex justify-center my-4">
-        <span class="text-lg text-gray-700 font-semibold tracking-wider"
-          >Auncun évènement</span
-        >
+        <span class="text-lg text-gray-700 font-semibold tracking-wider">Auncun évènement</span>
       </div>
     </div>
 
-    <agenda-add-event
-      @addEvent="toggleModalAddEvent"
-      :date="selectedDate"
-    ></agenda-add-event>
+    <agenda-add-event @addEvent="toggleModalAddEvent" :date="selectedDate"></agenda-add-event>
 
-    <agenda-add-event-modal
-      :isOpen="isModalOpen"
-      @close="toggleModalAddEvent"
-      :date="selectedDate"
-    ></agenda-add-event-modal>
+    <agenda-add-event-modal :isOpen="isModalOpen" @close="toggleModalAddEvent" :date="selectedDate"></agenda-add-event-modal>
   </div>
 </template>
 
@@ -108,27 +96,8 @@ export default {
   },
 
   created() {
-    axios.get("http://127.0.0.1:8000/api/events").then(response => {
+    axios.get("https://agenda-api.silverkit.io/api/events").then(response => {
       this.events = response.data.data;
-
-      if ((this.events.length = 0)) {
-        this.events = [
-          {
-            title: "Présentation SilverKit UTAN",
-            start: new Date("2019-11-27 14:00"),
-            end: new Date("2019-11-27 16:00"),
-            repeat: "never",
-            categoryId: 1
-          },
-          {
-            title: "The great event",
-            start: new Date("2019-11-27 11:45"),
-            end: new Date("2019-11-27 12:20"),
-            repeat: "never",
-            categoryId: 1
-          }
-        ];
-      }
     });
   }
 };
