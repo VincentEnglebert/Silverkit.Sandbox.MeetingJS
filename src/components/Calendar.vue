@@ -115,6 +115,7 @@ export default {
   watch: {
     events: function() {
       this.date = new moment(this.date);
+      this.eventsForDaysCaching = new Map();
     }
   },
 
