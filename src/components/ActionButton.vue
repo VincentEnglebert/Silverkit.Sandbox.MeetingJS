@@ -6,7 +6,7 @@ data-sk-intent-click-group="edit-button-group"
 
   <button
     @click="action"
-    class="text-xs uppercase font-semibold text-gray-500 border-2 border-gray-500 hover:bg-gray-500 hover:text-gray-100 px-2 py-1 rounded"
+    class="text-xs tracking-tight uppercase text-gray-500 border border-gray-500 hover:bg-gray-500 hover:text-gray-100 px-2 py-1 rounded"
   >{{ text }}</button>
 </template>
 
