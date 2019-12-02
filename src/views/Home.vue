@@ -3,7 +3,7 @@
     <div class="bg-white border-b-2 border-gray-300">
       <Calendar
         :eventCategories="eventCategories"
-        :events="events"
+        :events="events || []"
         ref="calendar"
         :selectedDate="selectedDate"
         @setDate="setDate"
@@ -65,7 +65,7 @@ export default {
           backgroundColor: "#e85c66"
         }
       ],
-      events: [],
+      events: null,
       selectedDate: null,
       isModalOpen: false
     };
@@ -73,11 +73,15 @@ export default {
 
   computed: {
     todayEvents() {
-      let selection = this.selectedDate || moment();
+      if (this.events === null) return [];
 
-      return this.events.filter(event => {
+      let selection = this.selectedDate || new moment();
+
+      const result = this.events.filter(event => {
         return selection.isBetween(event.start_at, event.end_at, "days", "[]");
       });
+
+      return result;
     }
   },
 
@@ -87,7 +91,7 @@ export default {
     },
 
     setDate(date) {
-      this.selectedDate = date;
+      this.selectedDate = new moment(date);
     },
 
     toggleModalAddEvent() {
@@ -97,8 +101,7 @@ export default {
 
   created() {
     axios.get("https://agenda-api.silverkit.io/api/events").then(response => {
-      // this.events = response.data.data;
-      this.events = [];
+      this.events = response.data.data;
     });
   }
 };

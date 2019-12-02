@@ -10,10 +10,10 @@
 
 document.addEventListener("DOMContentLoaded", () => {
   window.addEventListener("touchstart", () => {
-    console.log("Start pressing");
+    // console.log("Start pressing");
   });
 
   window.addEventListener("touchend", () => {
-    console.log("Stop pressing");
+    // console.log("Stop pressing");
   });
 });

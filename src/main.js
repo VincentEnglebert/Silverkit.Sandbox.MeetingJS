@@ -6,9 +6,9 @@ import "./registerServiceWorker";
 // Import Tailwindcss
 import "@/assets/css/app.css";
 
-import "@/silverkit/ClickListener.js";
-import "@/silverkit/GyroscopeListener.js";
-import "@/silverkit/FeedbackAnalysis.js";
+// import "@/silverkit/ClickListener.js";
+// import "@/silverkit/GyroscopeListener.js";
+// import "@/silverkit/FeedbackAnalysis.js";
 
 import "@/moment.config.js";
 

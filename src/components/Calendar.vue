@@ -1,13 +1,17 @@
 <template>
-  <div id="sweetCalendar">
+  <div id="sweetCalendar" :key="componentKey">
     <div class="container calendar">
-      <div class="header">
-        <div class="left-arrow" @click="prevMonth">
-          <span>&lt;</span>
+      <div class="w-4/5 m-auto flex justify-between">
+        <div class @click="prevMonth">
+          <span
+            class="cursor-pointer text-xs uppercase tracking-wide bg-gray-100 p-2 rounded hover:bg-gray-200 text-gray-700 ml-2"
+          >{{ previousMonthName }}</span>
         </div>
-        <div class="month">{{ selectedMonthName }} {{ selectedYear }}</div>
-        <div class="right-arrow" @click="nextMonth">
-          <span>&gt;</span>
+        <div class="capitalize">{{ selectedMonthName }} {{ selectedYear }}</div>
+        <div class @click="nextMonth">
+          <span
+            class="cursor-pointer text-xs uppercase tracking-wide bg-gray-100 p-2 rounded hover:bg-gray-200 text-gray-700 mr-2"
+          >{{ nextMonthName }}</span>
         </div>
       </div>
       <div class="body">
@@ -28,7 +32,6 @@
               day.isSame(today, 'day') ? 'today' : null,
               isSelected(day) ? 'selected' : null
             ]"
-            :style="generateDayStyle(day)"
             @click="selectDay(day)"
           >
             <span class="text-sm text-center">{{ day.date() }}</span>
@@ -56,7 +59,9 @@ export default {
     return {
       today: new moment(),
       date: new moment(),
-      weekdays: null
+      weekdays: null,
+      eventsForDaysCaching: new Map(),
+      componentKey: 0
     };
   },
   computed: {
@@ -91,18 +96,39 @@ export default {
     selectedMonthName() {
       return this.date.format("MMMM");
     },
+
+    previousMonthName() {
+      return new moment(this.date).subtract(1, "month").format("MMM");
+    },
+
+    nextMonthName() {
+      return new moment(this.date).add(1, "month").format("MMM");
+    },
+
     selectedYear() {
       return parseInt(this.date.year());
     }
   },
+
+  watch: {
+    events: function() {
+      this.date = new moment(this.date);
+    }
+  },
+
   methods: {
     eventsForDay(day) {
-      return this.events.filter(event => {
+      if (this.eventsForDaysCaching.has(day))
+        return this.eventsForDaysCaching.get(day);
+
+      const toCache = this.events.filter(event => {
         return (
-          day.isAfter(moment(event.start_at), "day") &&
-          day.isBefore(moment(event.end_at), "day")
+          day.isAfter(moment(event.start_at).subtract(1, "day"), "day") &&
+          day.isBefore(moment(event.end_at).add(1, "day"), "day")
         );
       });
+      this.eventsForDaysCaching.set(day, toCache);
+      return toCache;
     },
 
     prevMonth() {
@@ -130,25 +156,6 @@ export default {
       }
 
       return weekdays;
-    },
-
-    generateDayStyle(date) {
-      let style = {};
-      for (let event of this.events) {
-        if (
-          date.isBetween(moment(event.start), moment(event.end), "day", "[]")
-        ) {
-          let category =
-            this.eventCategories.find(item => item.id === event.categoryId) ||
-            {};
-          Object.assign(style, {
-            color: category.id ? category.textColor : null,
-            backgroundColor: category.id ? category.backgroundColor : null,
-            fontWeight: category.id ? "bold" : "normal"
-          });
-        }
-      }
-      return style;
     },
 
     goToday() {
@@ -197,12 +204,6 @@ export default {
     if (this.initialDate) this.date = new moment(this.initialDate);
     else this.date = new moment();
     this.weekdays = this.generateWeekdayNames(this.firstDayOfWeek);
-
-    let testDate = new moment();
-
-    let otherDate = new moment(testDate);
-
-    console.log(testDate, otherDate.format("d"));
   }
 };
 </script>
