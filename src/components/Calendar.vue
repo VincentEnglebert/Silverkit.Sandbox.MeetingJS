@@ -23,9 +23,8 @@
             class="transition-all transition-faster ease-out"
             :class="[
               'day',
-              `day-${day.date()},
-            weekday-${day.date()}`,
-              offDays.includes(day.date()) ? 'off-day' : null,
+              `day-${day.date()}`,
+              `weekday-${day.date()}`,
               day.isSame(today, 'day') ? 'today' : null,
               isSelected(day) ? 'selected' : null
             ]"
@@ -49,7 +48,6 @@
 </template>
 
 <script>
-import DateTime from "../DateTime.js";
 import moment from "moment";
 
 export default {
@@ -57,48 +55,49 @@ export default {
   data() {
     return {
       today: new moment(),
-      date: null,
+      date: new moment(),
       weekdays: null
     };
   },
   computed: {
     days() {
       let emptyDays = Array(
-        (this.startWeekDayOfMonth - this.firstDayOfWeek + 7) % 7
+        (this.startWeekDayOfMonth - this.firstDayOfWeek + 8) % 7
       ).fill(null);
       let days = Array(this.numberOfDays)
         .fill()
-        .map((item, index) =>
-          new moment()
-            .year(this.selectedYear)
-            .month(this.selectedMonth)
-            .day(index + 1)
+        .map(
+          (item, index) =>
+            new moment({
+              year: this.selectedYear,
+              month: this.selectedMonth,
+              day: index + 1
+            })
         );
       return emptyDays.concat(days);
     },
+
     startWeekDayOfMonth() {
-      return this.date.getFirstWeekdayOfMonth();
+      // dimanche == 0
+      // lunid == 1
+      return new moment(this.date).startOf("month").format("d");
     },
     numberOfDays() {
-      return this.date.getNumberOfDaysInMonth();
+      return this.date.daysInMonth();
     },
     selectedMonth() {
-      return this.date.getMonth();
+      return parseInt(this.date.format("M")) - 1;
     },
     selectedMonthName() {
-      return this.date.getMonthName();
+      return this.date.format("MMMM");
     },
     selectedYear() {
-      return this.date.getFullYear();
+      return parseInt(this.date.year());
     }
   },
   methods: {
     eventsForDay(day) {
       return this.events.filter(event => {
-        // console.log(momentDay);
-        // console.log(moment(event.start_at));
-        // console.log(moment(event.end_at));
-
         return (
           day.isAfter(moment(event.start_at), "day") &&
           day.isBefore(moment(event.end_at), "day")
@@ -107,11 +106,13 @@ export default {
     },
 
     prevMonth() {
-      this.date = new DateTime(this.selectedYear, this.selectedMonth - 1, 1);
+      this.date = new moment(this.date).subtract(1, "month").startOf("month");
     },
+
     nextMonth() {
-      this.date = new DateTime(this.selectedYear, this.selectedMonth + 1, 1);
+      this.date = new moment(this.date).add(1, "month").startOf("month");
     },
+
     generateWeekdayNames(firstDayOfWeek = 1) {
       let weekdays = [
         "Dimanche",
@@ -122,12 +123,15 @@ export default {
         "Vendredi",
         "Samedi"
       ];
+
       for (let i = 2; i <= firstDayOfWeek; i++) {
         let first = weekdays.shift();
         weekdays.push(first);
       }
+
       return weekdays;
     },
+
     generateDayStyle(date) {
       let style = {};
       for (let event of this.events) {
@@ -148,20 +152,19 @@ export default {
     },
 
     goToday() {
-      this.date = this.today;
+      this.date = new moment(this.today);
     },
 
     selectDay(day) {
       this.$emit("setDate", day);
     },
+
     isSelected(day) {
       if (!this.selectedDate) {
         return false;
       }
 
-      return (
-        day.format("dddd D MMMM") === this.selectedDate.format("dddd D MMMM")
-      );
+      return day.isSame(this.selectedDate, "day");
     }
   },
   props: {
@@ -185,22 +188,21 @@ export default {
         return [];
       }
     },
-    offDays: {
-      type: Array,
-      default() {
-        return [1, 7];
-      }
-    },
     selectedDate: {
       type: Object,
       default: null
     }
   },
-  beforeMount() {
-    this.date = Date.parse(this.initialDate)
-      ? new DateTime(this.initialDate)
-      : new DateTime();
+  created() {
+    if (this.initialDate) this.date = new moment(this.initialDate);
+    else this.date = new moment();
     this.weekdays = this.generateWeekdayNames(this.firstDayOfWeek);
+
+    let testDate = new moment();
+
+    let otherDate = new moment(testDate);
+
+    console.log(testDate, otherDate.format("d"));
   }
 };
 </script>

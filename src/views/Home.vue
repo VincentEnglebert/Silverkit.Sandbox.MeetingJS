@@ -97,7 +97,8 @@ export default {
 
   created() {
     axios.get("https://agenda-api.silverkit.io/api/events").then(response => {
-      this.events = response.data.data;
+      // this.events = response.data.data;
+      this.events = [];
     });
   }
 };
