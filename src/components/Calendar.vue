@@ -2,14 +2,16 @@
   <div id="sweetCalendar" :key="componentKey">
     <div class="container calendar">
       <div class="w-4/5 m-auto flex justify-between">
-        <div class @click="prevMonth">
+        <div>
           <span
+            @click="prevMonth"
             class="cursor-pointer text-xs uppercase tracking-wide bg-gray-100 p-2 rounded hover:bg-gray-200 text-gray-700 ml-2"
           >{{ previousMonthName }}</span>
         </div>
         <div class="capitalize">{{ selectedMonthName }} {{ selectedYear }}</div>
-        <div class @click="nextMonth">
+        <div>
           <span
+            @click="nextMonth"
             class="cursor-pointer text-xs uppercase tracking-wide bg-gray-100 p-2 rounded hover:bg-gray-200 text-gray-700 mr-2"
           >{{ nextMonthName }}</span>
         </div>
@@ -118,8 +120,10 @@ export default {
 
   methods: {
     eventsForDay(day) {
-      if (this.eventsForDaysCaching.has(day))
-        return this.eventsForDaysCaching.get(day);
+      const day_as_str = day.toString();
+
+      if (this.eventsForDaysCaching.has(day_as_str))
+        return this.eventsForDaysCaching.get(day_as_str);
 
       const toCache = this.events.filter(event => {
         return (
@@ -127,7 +131,9 @@ export default {
           day.isBefore(moment(event.end_at).add(1, "day"), "day")
         );
       });
-      this.eventsForDaysCaching.set(day, toCache);
+
+      this.eventsForDaysCaching.set(day_as_str, toCache);
+
       return toCache;
     },
 
