@@ -3,7 +3,7 @@
     <div
       v-for="(element, index) in times"
       :key="index"
-      class="bg-white mx-8 my-2 py-2 rounded shadow-md"
+      class="bg-white mx-4 my-2 py-2 rounded shadow-md"
     >
       <time-slider :startTime="element.start" :endTime="element.end"></time-slider>
     </div>

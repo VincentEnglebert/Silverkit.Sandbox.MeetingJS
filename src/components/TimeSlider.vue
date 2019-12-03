@@ -22,22 +22,22 @@
         <div>
           <span
             @click="soonerLeft"
-            class="uppercase text-sm px-2 py-1 bg-gray-100 text-gray-700 mx-1 shadow rounded text-green-500"
+            class="uppercase text-sm px-2 py-1 bg-green-400 mx-1 shadow rounded text-green-100"
           >-</span>
           <span
             @click="laterLeft"
-            class="uppercase text-sm px-2 py-1 bg-gray-100 text-gray-700 mx-1 shadow rounded text-red-500"
+            class="uppercase text-sm px-2 py-1 bg-red-400 mx-1 shadow rounded text-red-100"
           >+</span>
         </div>
 
         <div>
           <span
             @click="soonerRight"
-            class="uppercase text-sm px-2 py-1 bg-gray-100 text-gray-700 mx-1 shadow rounded text-red-500"
+            class="uppercase text-sm px-2 py-1 bg-red-400 mx-1 shadow rounded text-red-100"
           >-</span>
           <span
             @click="laterRight"
-            class="uppercase text-sm px-2 py-1 bg-gray-100 text-gray-700 mx-1 shadow rounded text-green-500"
+            class="uppercase text-sm px-2 py-1 bg-green-400 mx-1 shadow rounded text-green-100"
           >+</span>
         </div>
       </div>
