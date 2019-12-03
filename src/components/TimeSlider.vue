@@ -1,7 +1,7 @@
 <template>
   <div>
-    <div class="w-3/5 m-auto">
-      <div class="flex justify-between mb-2">
+    <div class="w-5/6 m-auto">
+      <div class="flex justify-between mb-1">
         <span>{{this.startHour}}h00</span>
         <span>{{ this.endHour }}h00</span>
       </div>
@@ -10,6 +10,7 @@
           v-for="(hour, index) in originalHoursDifference"
           :key="index"
           class="border-l border-r border-gray-200 flex-grow text-center"
+          @click="toggleHour(originalStartHour + index)"
           :class="{ 
             'rounded-l-full': index === 0,
             'rounded-r-full': index === originalHoursDifference - 1,
@@ -48,10 +49,19 @@
 import moment from "moment";
 
 export default {
+  props: {
+    startTime: {
+      type: Object
+    },
+    endTime: {
+      type: Object
+    }
+  },
+
   data() {
     return {
-      start: moment({ hours: 8 }),
-      end: moment({ hours: 20 }),
+      start: this.startTime,
+      end: this.endTime,
       originalStartHour: 8,
       originalEndHour: 20
     };
@@ -76,6 +86,8 @@ export default {
   },
 
   methods: {
+    toggleHour(hour) {},
+
     laterLeft() {
       if (this.startHour < this.endHour - 1)
         this.start = new moment(this.start).add(1, "hour");
@@ -94,6 +106,11 @@ export default {
         this.start = new moment(this.start).subtract(1, "hour");
       }
     }
+  },
+
+  created() {
+    this.originalStartHour = parseInt(this.startTime.hours());
+    this.originalEndHour = parseInt(this.endTime.hours());
   }
 };
 </script>
