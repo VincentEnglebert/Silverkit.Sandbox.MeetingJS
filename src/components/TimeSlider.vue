@@ -1,30 +1,30 @@
 <template>
   <div>
-    <div class="w-5/6 m-auto">
-      <div class="flex justify-between mb-3 mt-1">
+    <div class="m-auto">
+      <div v-if="!allRed" class="flex justify-between items-center mb-3 mt-1">
         <div>
           <span
             @click="soonerLeft"
-            class="uppercase text-sm px-2 py-1 bg-green-400 mx-1 shadow rounded text-green-100"
+            class="uppercase text-xs px-2 py-1 bg-green-400 mx-1 shadow rounded-sm text-green-100"
           >-</span>
           <span class="mono-font">{{ formatTime(this.startHour) }}h00</span>
 
           <span
             @click="laterLeft"
-            class="uppercase text-sm px-2 py-1 bg-red-400 mx-1 shadow rounded text-red-100"
+            class="uppercase text-xs px-2 py-1 bg-red-400 mx-1 shadow rounded-sm text-red-100"
           >+</span>
         </div>
 
         <div>
           <span
             @click="soonerRight"
-            class="uppercase text-sm px-2 py-1 bg-red-400 mx-1 shadow rounded text-red-100"
+            class="uppercase text-xs px-2 py-1 bg-red-400 mx-1 shadow rounded-sm text-red-100"
           >-</span>
           <span class="mono-font">{{ formatTime(this.endHour) }}h00</span>
 
           <span
             @click="laterRight"
-            class="uppercase text-sm px-2 py-1 bg-green-400 mx-1 shadow rounded text-green-100"
+            class="uppercase text-xs px-2 py-1 bg-green-400 mx-1 shadow rounded-sm text-green-100"
           >+</span>
         </div>
       </div>
@@ -37,9 +37,12 @@
           :class="{ 
             'rounded-l-full': index === 0,
             'rounded-r-full': index === originalHoursDifference - 1,
-            'bg-green-300': startHour <= originalStartHour + index && index + 1 + originalStartHour <= (originalEndHour - (originalEndHour - endHour)),
-            'bg-red-300': (startHour > originalStartHour + index) || index + 1 + originalStartHour > (originalEndHour - (originalEndHour - endHour)) }"
+            'bg-green-300': startHour <= originalStartHour + index && index + 1 + originalStartHour <= (originalEndHour - (originalEndHour - endHour)) && !allRed,
+            'bg-red-300': (startHour > originalStartHour + index) || index + 1 + originalStartHour > (originalEndHour - (originalEndHour - endHour)) || allRed }"
         >&#8203;</span>
+      </div>
+      <div class="text-center" v-if="allRed">
+        <span class="text-red-700">Aucune dispo ce jour.</span>
       </div>
     </div>
   </div>
@@ -55,6 +58,9 @@ export default {
     },
     endTime: {
       type: Object
+    },
+    allRed: {
+      type: Boolean
     }
   },
 
