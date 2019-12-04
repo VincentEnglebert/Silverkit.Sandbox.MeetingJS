@@ -20,7 +20,7 @@
         <div class="flex-1 px-4">
           <div class="flex justify-center">
             <span
-              class="capitalize text-gray-700 text-lg my-1"
+              class="capitalize text-gray-900 text-lg my-1"
             >{{ time.start.format('dddd') }} {{ time.start.date() }} {{ time.start.format("MMMM") }}</span>
           </div>
           <time-slider :startTime="time.start" :endTime="time.end" :allRed="removed"></time-slider>

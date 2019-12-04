@@ -5,27 +5,27 @@
         <div>
           <span
             @click="soonerLeft"
-            class="uppercase text-xs px-2 py-1 bg-green-400 mx-1 shadow rounded-sm text-green-100"
-          >-</span>
-          <span class="mono-font">{{ formatTime(this.startHour) }}h00</span>
+            class="uppercase text-base px-2 py-1 bg-green-200 mx-1 rounded-full text-green-700"
+          >&larr;</span>
+          <span class="mono-font text-gray-900">{{ formatTime(this.startHour) }}h00</span>
 
           <span
             @click="laterLeft"
-            class="uppercase text-xs px-2 py-1 bg-red-400 mx-1 shadow rounded-sm text-red-100"
-          >+</span>
+            class="uppercase text-base px-2 py-1 bg-red-200 mx-1 rounded-full text-red-700"
+          >&rarr;</span>
         </div>
 
         <div>
           <span
             @click="soonerRight"
-            class="uppercase text-xs px-2 py-1 bg-red-400 mx-1 shadow rounded-sm text-red-100"
-          >-</span>
-          <span class="mono-font">{{ formatTime(this.endHour) }}h00</span>
+            class="uppercase text-base px-2 py-1 bg-red-200 mx-1 rounded-full text-red-700"
+          >&larr;</span>
+          <span class="mono-font text-gray-900">{{ formatTime(this.endHour) }}h00</span>
 
           <span
             @click="laterRight"
-            class="uppercase text-xs px-2 py-1 bg-green-400 mx-1 shadow rounded-sm text-green-100"
-          >+</span>
+            class="uppercase text-base px-2 py-1 bg-green-200 mx-1 rounded-full text-green-700"
+          >&rarr;</span>
         </div>
       </div>
       <div class="w-full flex my-2">
