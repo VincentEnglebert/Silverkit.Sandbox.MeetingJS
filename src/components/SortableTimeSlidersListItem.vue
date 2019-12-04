@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="bg-white mx-4 my-2 py-2 rounded shadow" :class="{'bg-red-200' :removed }">
+    <div class="bg-white mb-2 py-2 rounded shadow" :class="{'bg-red-200' :removed }">
       <div class="flex">
         <div class="flex justify-center items-center flex-col border-r border-dashed">
           <span
@@ -23,7 +23,7 @@
 
 <script>
 import TimeSlider from "@/components/TimeSlider";
-import moment from "moment";
+// import moment from "moment";
 
 export default {
   props: {

@@ -1,7 +1,14 @@
 <template>
-  <div>
+  <div class="relative">
     <div v-for="(time, index) in times" :key="index">
-      <sortable-time-sliders-list-item :time="time"></sortable-time-sliders-list-item>
+      <sortable-time-sliders-list-item @cloned="cloneItem(index, ...arguments)" :time="time"></sortable-time-sliders-list-item>
+    </div>
+    <div class="sticky bottom-0 text-center mt-4 pb-2">
+      <button
+        class="text-sm uppercase bg-purple-600 hover:bg-purple-700 text-purple-100 px-4 py-2 rounded shadow-lg transition-all transition-slowest ease-out"
+      >
+        <span class="font-bold">Valider les disponibilités</span>
+      </button>
     </div>
   </div>
 </template>
@@ -27,6 +34,18 @@ export default {
         }
       ]
     };
+  },
+
+  methods: {
+    cloneItem(index, data) {
+      console.log(index, data.start.hours(), data.end.hours());
+      const newDate = {
+        start: new moment(data.start),
+        end: new moment(data.end)
+      };
+      // this.times.splice(index, 0, newDate);
+      this.times.push(newDate);
+    }
   }
 };
 </script>
