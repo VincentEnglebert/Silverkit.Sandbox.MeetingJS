@@ -4,6 +4,10 @@
       <div class="flex">
         <div class="flex justify-center items-center flex-col border-r border-dashed">
           <span
+            @click="handle"
+            class="text-xl uppercase text-gray-400 pr-3 ml-2 pl-2 hover:text-blue-400 cursor-pointer"
+          >&udarr;</span>
+          <span
             @click="toggle"
             class="text-2xl uppercase text-gray-400 pr-3 ml-2 pl-2 hover:text-red-400 cursor-pointer"
             :class="{'text-red-400' : removed}"
@@ -14,6 +18,11 @@
           >&cularrp;</span>
         </div>
         <div class="flex-1 px-4">
+          <div class="flex justify-center">
+            <span
+              class="capitalize text-gray-700 text-lg my-1"
+            >{{ time.start.format('dddd') }} {{ time.start.date() }} {{ time.start.format("MMMM") }}</span>
+          </div>
           <time-slider :startTime="time.start" :endTime="time.end" :allRed="removed"></time-slider>
         </div>
       </div>
@@ -47,7 +56,9 @@ export default {
 
     clone() {
       this.$emit("cloned", this.time);
-    }
+    },
+
+    handle() {}
   },
 
   components: {
