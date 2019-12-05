@@ -4,12 +4,19 @@
       <div v-if="!allRed" class="flex justify-between items-center mb-3 mt-1">
         <div>
           <span
+            data-sk-intent-click
+            data-sk-intent-click-group="plus-minus-time-slider"
             @click="soonerLeft"
             class="uppercase text-base px-2 py-1 bg-green-200 mx-1 rounded-full text-green-700"
           >&larr;</span>
-          <span class="mono-font text-gray-900">{{ formatTime(this.startHour) }}h00</span>
+          <span
+            data-sk-intent-click-group="plus-minus-time-slider"
+            class="mono-font text-gray-900"
+          >{{ formatTime(this.startHour) }}h00</span>
 
           <span
+            data-sk-intent-click
+            data-sk-intent-click-group="plus-minus-time-slider"
             @click="laterLeft"
             class="uppercase text-base px-2 py-1 bg-red-200 mx-1 rounded-full text-red-700"
           >&rarr;</span>
@@ -17,12 +24,19 @@
 
         <div>
           <span
+            data-sk-intent-click
+            data-sk-intent-click-group="plus-minus-time-slider"
             @click="soonerRight"
             class="uppercase text-base px-2 py-1 bg-red-200 mx-1 rounded-full text-red-700"
           >&larr;</span>
-          <span class="mono-font text-gray-900">{{ formatTime(this.endHour) }}h00</span>
+          <span
+            data-sk-intent-click-group="plus-minus-time-slider"
+            class="mono-font text-gray-900"
+          >{{ formatTime(this.endHour) }}h00</span>
 
           <span
+            data-sk-intent-click
+            data-sk-intent-click-group="plus-minus-time-slider"
             @click="laterRight"
             class="uppercase text-base px-2 py-1 bg-green-200 mx-1 rounded-full text-green-700"
           >&rarr;</span>
@@ -33,7 +47,6 @@
           v-for="(hour, index) in originalHoursDifference"
           :key="index"
           class="border-l border-r border-gray-200 flex-grow text-center"
-          @click="toggleHour(originalStartHour + index)"
           :class="{ 
             'rounded-l-full': index === 0,
             'rounded-r-full': index === originalHoursDifference - 1,

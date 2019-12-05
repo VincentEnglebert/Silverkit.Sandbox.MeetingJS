@@ -17,12 +17,23 @@ Math.getDistance = function(x1, y1, x2, y2) {
   return Math.sqrt(xs + ys);
 };
 
-document.addEventListener("DOMContentLoaded", () => {
+window.addEventListener("load", () => {
   console.log("DOM is ready for click listener.");
 
   const elementsToObserve = document.querySelectorAll("[data-sk-intent-click]");
+  console.log(elementsToObserve);
 
   window.addEventListener("click", event => {
+    let shouldAbort = false;
+
+    elementsToObserve.forEach(element => {
+      if (element == event.target) shouldAbort = true;
+    });
+
+    if (shouldAbort) {
+      return;
+    }
+
     const clickX = event.clientX;
     const clickY = event.clientY;
 
@@ -30,8 +41,12 @@ document.addEventListener("DOMContentLoaded", () => {
     let closestElementDistance = null;
 
     elementsToObserve.forEach(element => {
-      const elementCenterX = element.offsetLeft + element.offsetWidth / 2;
-      const elementCenterY = element.offsetTop + element.offsetHeight / 2;
+      const elementCenterX =
+        element.getBoundingClientRect().left +
+        element.getBoundingClientRect().width / 2;
+      const elementCenterY =
+        element.getBoundingClientRect().top +
+        element.getBoundingClientRect().height / 2;
 
       const distanceBetweenClickAndElementCenter = Math.getDistance(
         clickX,
@@ -51,9 +66,6 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
 
-    // If nothing is found, abort.
-    if (!closestElement) return;
-
     const isClickInsideElementBounds = closestElement === event.target;
 
     let resultClick = null;
@@ -71,6 +83,24 @@ document.addEventListener("DOMContentLoaded", () => {
     // Logic that shouldn't be here
 
     if (!isClickInsideElementBounds) {
+      // Check if it is not too far to be considered a missclick
+      const smallestBetweenWidthAndHeight = Math.min(
+        closestElement.getBoundingClientRect().width / 2,
+        closestElement.getBoundingClientRect().height / 2
+      );
+
+      const distanceConsideredTooFar = 2.2 * smallestBetweenWidthAndHeight;
+
+      console.log(distanceConsideredTooFar);
+      console.log(closestElementDistance);
+      console.log(closestElement.offsetLeft + closestElement.offsetWidth / 2);
+
+      if (closestElementDistance > distanceConsideredTooFar) {
+        return;
+      }
+
+      console.log(closestElement.style.width);
+
       // Check if it's part of a click group
       const group = closestElement.dataset.skIntentClickGroup;
 
