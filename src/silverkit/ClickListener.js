@@ -23,6 +23,13 @@ window.addEventListener("load", () => {
   const elementsToObserve = document.querySelectorAll("[data-sk-intent-click]");
   console.log(elementsToObserve);
 
+  const elementsMissClickCountMap = new Map();
+  const groupMissClickCountMap = new Map();
+
+  elementsToObserve.forEach(element => {
+    elementsMissClickCountMap.set(element, 0);
+  });
+
   window.addEventListener("click", event => {
     let shouldAbort = false;
 
@@ -99,22 +106,46 @@ window.addEventListener("load", () => {
         return;
       }
 
+      // From here, we have a "valid" missclick.
+
+      elementsMissClickCountMap.set(
+        closestElement,
+        elementsMissClickCountMap.get(closestElement) + 1
+      );
+
       console.log(closestElement.style.width);
 
       // Check if it's part of a click group
       const group = closestElement.dataset.skIntentClickGroup;
 
       if (group) {
-        // If it is, we update all the group at once
-        const groupElements = document.querySelectorAll(
-          `[data-sk-intent-click-group=${group}]`
-        );
-        groupElements.forEach(element => {
-          increaseTextSize(element);
-        });
+        if (groupMissClickCountMap.has(group)) {
+          groupMissClickCountMap.set(
+            group,
+            groupMissClickCountMap.get(group) + 1
+          );
+        } else {
+          groupMissClickCountMap.set(group, 1);
+        }
+
+        if (groupMissClickCountMap.get(group) >= 3) {
+          console.log("Group has 3 miss clicks!");
+          groupMissClickCountMap.set(group, 0);
+          // If it is, we update all the group at once
+          const groupElements = document.querySelectorAll(
+            `[data-sk-intent-click-group=${group}]`
+          );
+          groupElements.forEach(element => {
+            increaseTextSize(element);
+          });
+        }
       } else {
         // Else we only update the element
-        increaseTextSize(closestElement);
+        if (elementsMissClickCountMap.get(closestElement) >= 3) {
+          console.log("Element has 3 miss clicks");
+          increaseTextSize(closestElement);
+          elementsMissClickCountMap.set(closestElement, 0);
+        }
       }
     }
   });
