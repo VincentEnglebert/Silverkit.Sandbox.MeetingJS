@@ -16,7 +16,7 @@
           >&cross;</button>
           <button
             @click="clone"
-            class="text-2xl uppercase text-gray-400 pr-3 ml-1 pl-3 hover:text-blue-400 cursor-pointer"
+            class="text-2xl uppercase text-gray-400 pr-3 ml-1 pl-3 hover:text-blue-400 cursor-pointer font-semibold"
             style="font-family:Inconcouriersolata"
           >&plus;</button>
         </div>
