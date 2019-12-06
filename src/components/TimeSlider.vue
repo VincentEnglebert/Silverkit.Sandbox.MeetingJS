@@ -3,43 +3,43 @@
     <div class="m-auto">
       <div v-if="!allRed" class="flex justify-between items-center mb-3 mt-1">
         <div>
-          <span
+          <button
             data-sk-intent-click
             data-sk-intent-click-group="plus-minus-time-slider"
             @click="soonerLeft"
             class="uppercase text-base px-2 py-1 bg-green-200 mx-1 rounded-full text-green-700"
-          >&larr;</span>
+          >&larr;</button>
           <span
             data-sk-intent-click-group="plus-minus-time-slider"
             class="mono-font text-gray-900"
           >{{ formatTime(this.startHour) }}h00</span>
 
-          <span
+          <button
             data-sk-intent-click
             data-sk-intent-click-group="plus-minus-time-slider"
             @click="laterLeft"
             class="uppercase text-base px-2 py-1 bg-red-200 mx-1 rounded-full text-red-700"
-          >&rarr;</span>
+          >&rarr;</button>
         </div>
 
         <div>
-          <span
+          <button
             data-sk-intent-click
             data-sk-intent-click-group="plus-minus-time-slider"
             @click="soonerRight"
             class="uppercase text-base px-2 py-1 bg-red-200 mx-1 rounded-full text-red-700"
-          >&larr;</span>
+          >&larr;</button>
           <span
             data-sk-intent-click-group="plus-minus-time-slider"
             class="mono-font text-gray-900"
           >{{ formatTime(this.endHour) }}h00</span>
 
-          <span
+          <button
             data-sk-intent-click
             data-sk-intent-click-group="plus-minus-time-slider"
             @click="laterRight"
             class="uppercase text-base px-2 py-1 bg-green-200 mx-1 rounded-full text-green-700"
-          >&rarr;</span>
+          >&rarr;</button>
         </div>
       </div>
       <div class="w-full flex my-2">

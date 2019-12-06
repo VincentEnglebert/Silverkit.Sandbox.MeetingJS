@@ -2,20 +2,23 @@
   <div>
     <div class="bg-white mb-2 py-2 rounded shadow" :class="{'bg-red-200' :removed }">
       <div class="flex">
-        <div class="flex justify-center items-center flex-col border-r border-dashed">
-          <span
+        <div class="flex justify-between items-center flex-col border-r border-dashed">
+          <button
             @click="handle"
-            class="text-xl uppercase text-gray-400 pr-3 ml-2 pl-2 hover:text-blue-400 cursor-pointer"
-          >&udarr;</span>
-          <span
+            class="text-2xl uppercase text-gray-400 pr-3 ml-1 pl-3 hover:text-blue-400 cursor-pointer"
+            style="font-family:courier"
+          >&udarr;</button>
+          <button
             @click="toggle"
-            class="text-2xl uppercase text-gray-400 pr-3 ml-2 pl-2 hover:text-red-400 cursor-pointer"
+            class="text-2xl uppercase text-gray-400 pr-3 ml-1 pl-3 hover:text-red-400 cursor-pointer"
             :class="{'text-red-400' : removed}"
-          >&cross;</span>
-          <span
+            style="font-family:courier"
+          >&cross;</button>
+          <button
             @click="clone"
-            class="text-2xl uppercase text-gray-400 pr-3 ml-2 pl-2 hover:text-blue-400 cursor-pointer"
-          >&cularrp;</span>
+            class="text-2xl uppercase text-gray-400 pr-3 ml-1 pl-3 hover:text-blue-400 cursor-pointer"
+            style="font-family:Inconcouriersolata"
+          >&plus;</button>
         </div>
         <div class="flex-1 px-4">
           <div class="flex justify-center">

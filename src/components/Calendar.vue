@@ -1,6 +1,6 @@
 <template>
   <div id="sweetCalendar" :key="componentKey">
-    <div class="container calendar">
+    <div class="container calendar pb-2">
       <div class="w-4/5 m-auto flex justify-between">
         <div>
           <span
