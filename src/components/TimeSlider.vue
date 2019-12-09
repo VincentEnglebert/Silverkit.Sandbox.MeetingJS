@@ -9,6 +9,7 @@
             @click="soonerLeft"
             class="uppercase text-base px-2 py-1 bg-green-200 mx-1 rounded-full text-green-700"
           >&larr;</button>
+
           <span
             data-sk-intent-click-group="plus-minus-time-slider"
             class="mono-font text-gray-900"
@@ -42,7 +43,7 @@
           >&rarr;</button>
         </div>
       </div>
-      <div class="w-full flex my-2">
+      <div class="w-full flex">
         <span
           v-for="(hour, index) in originalHoursDifference"
           :key="index"
@@ -54,8 +55,8 @@
             'bg-red-300': (startHour > originalStartHour + index) || index + 1 + originalStartHour > (originalEndHour - (originalEndHour - endHour)) || allRed }"
         >&#8203;</span>
       </div>
-      <div class="text-center" v-if="allRed">
-        <span class="text-red-700">Aucune dispo ce jour.</span>
+      <div class="text-center mt-2" v-if="allRed">
+        <span class="text-red-700 my-1">Aucune dispo ce jour.</span>
       </div>
     </div>
   </div>

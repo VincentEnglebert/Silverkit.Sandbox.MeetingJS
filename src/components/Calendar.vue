@@ -6,14 +6,16 @@
           <span
             @click="prevMonth"
             class="cursor-pointer text-xs uppercase tracking-wide bg-gray-100 p-2 rounded hover:bg-gray-200 text-gray-700 ml-2"
-          >{{ previousMonthName }}</span>
+            >{{ previousMonthName }}</span
+          >
         </div>
         <div class="capitalize">{{ selectedMonthName }} {{ selectedYear }}</div>
         <div>
           <span
             @click="nextMonth"
             class="cursor-pointer text-xs uppercase tracking-wide bg-gray-100 p-2 rounded hover:bg-gray-200 text-gray-700 mr-2"
-          >{{ nextMonthName }}</span>
+            >{{ nextMonthName }}</span
+          >
         </div>
       </div>
       <div class="body">
@@ -22,8 +24,16 @@
           :key="`day-name-${index + 1}`"
           class="day-name"
           :title="day"
-        >{{ day[0] }}</div>
-        <div v-for="(day, index) in days" :key="index" class="day-container">
+        >
+          {{ day[0] }}
+        </div>
+        <div
+          v-for="(day, index) in days"
+          :key="index"
+          class="day-container"
+          data-sk-intent-click
+          data-sk-intent-click-group="calendar-day"
+        >
           <div
             v-if="day"
             class="transition-all transition-faster ease-out"
@@ -36,14 +46,23 @@
             ]"
             @click="selectDay(day)"
           >
-            <span class="text-sm text-center">{{ day.date() }}</span>
+            <span
+              class="text-sm text-center"
+              data-sk-intent-click-group="calendar-day"
+              >{{ day.date() }}</span
+            >
             <div class="flex items-center justify-center -mt-2">
               <span
                 v-for="(e, i) in eventsForDay(day)"
                 :key="i"
                 class="text-center font-semibold"
-              >&bull;</span>
-              <span v-if="eventsForDay(day).length == 0" class="text-transparent">&bull;</span>
+                >&bull;</span
+              >
+              <span
+                v-if="eventsForDay(day).length == 0"
+                class="text-transparent"
+                >&bull;</span
+              >
             </div>
           </div>
         </div>
@@ -218,4 +237,3 @@ export default {
 <style lang="sass" scoped>
 @import '../styles/index.sass'
 </style>
-

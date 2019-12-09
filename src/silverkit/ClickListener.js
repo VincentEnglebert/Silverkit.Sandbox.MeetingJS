@@ -1,3 +1,5 @@
+import Logger from "./Logger";
+
 /**
  * return the distance between two points.
  *
@@ -16,6 +18,8 @@ Math.getDistance = function(x1, y1, x2, y2) {
 
   return Math.sqrt(xs + ys);
 };
+
+const silverKitRemoteLogger = new Logger();
 
 window.addEventListener("load", () => {
   console.log("DOM is ready for click listener.");
@@ -79,13 +83,11 @@ window.addEventListener("load", () => {
 
     if (isClickInsideElementBounds) {
       resultClick = "Hit";
+      let log = `CLICK hit ${Date.now()} ${resultClick} ${closestElementDistance}`;
+      silverKitRemoteLogger.log(log);
     } else {
       resultClick = "Miss";
     }
-
-    let log = `Time: ${Date.now()} \nType: Cick\nTarget: ${resultClick}\nDistanceFromTargetCenter: ${closestElementDistance}`;
-
-    console.log(log);
 
     // Logic that shouldn't be here
 
@@ -103,8 +105,13 @@ window.addEventListener("load", () => {
       console.log(closestElement.offsetLeft + closestElement.offsetWidth / 2);
 
       if (closestElementDistance > distanceConsideredTooFar) {
+        let log = `CLICK false-miss ${Date.now()} ${resultClick} ${closestElementDistance}`;
+        silverKitRemoteLogger.log(log);
         return;
       }
+
+      let log = `CLICK true-miss ${Date.now()} ${resultClick} ${closestElementDistance}`;
+      silverKitRemoteLogger.log(log);
 
       // From here, we have a "valid" missclick.
 

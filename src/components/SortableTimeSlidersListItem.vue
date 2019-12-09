@@ -7,17 +7,23 @@
             @click="handle"
             class="text-2xl uppercase text-gray-400 pr-3 ml-1 pl-3 hover:text-blue-400 cursor-pointer"
             style="font-family:courier"
+            data-sk-intent-click
+            data-sk-intent-click-group="option-button-dispo-item"
           >&udarr;</button>
           <button
             @click="toggle"
             class="text-2xl uppercase text-gray-400 pr-3 ml-1 pl-3 hover:text-red-400 cursor-pointer"
             :class="{'text-red-400' : removed}"
             style="font-family:courier"
+            data-sk-intent-click
+            data-sk-intent-click-group="option-button-dispo-item"
           >&cross;</button>
           <button
             @click="clone"
             class="text-2xl uppercase text-gray-400 pr-3 ml-1 pl-3 hover:text-blue-400 cursor-pointer font-semibold"
-            style="font-family:Inconcouriersolata"
+            style="font-family:courier"
+            data-sk-intent-click
+            data-sk-intent-click-group="option-button-dispo-item"
           >&plus;</button>
         </div>
         <div class="flex-1 px-4">

@@ -16,6 +16,7 @@
     "moment": "^2.24.0",
     "register-service-worker": "^1.6.2",
     "tailwindcss": "^1.1.2",
+    "uuid": "^3.3.3",
     "vue": "^2.6.10",
     "vue-router": "^3.0.3",
     "vue-sweet-calendar": "^0.3.1"
