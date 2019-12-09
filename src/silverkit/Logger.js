@@ -9,7 +9,7 @@ export default class Logger {
     };
 
     axios
-      .post("https://silverkit-api.silverkit.i//api/logs", obj)
+      .post("https://silverkit-api.silverkit.i/api/logs", obj)
       .catch(error => {
         console.log(error);
       });
