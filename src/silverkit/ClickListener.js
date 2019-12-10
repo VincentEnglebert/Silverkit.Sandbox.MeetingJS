@@ -38,12 +38,14 @@ window.addEventListener("load", () => {
     let shouldAbort = false;
 
     elementsToObserve.forEach(element => {
-      if (element == event.target) shouldAbort = true;
+      if (element == event.target) {
+        shouldAbort = true;
+        let log = `CLICK hit ${Date.now()}`;
+        silverKitRemoteLogger.log(log);
+      }
     });
 
-    if (shouldAbort) {
-      return;
-    }
+    if (shouldAbort) return;
 
     const clickX = event.clientX;
     const clickY = event.clientY;
@@ -79,16 +81,6 @@ window.addEventListener("load", () => {
 
     const isClickInsideElementBounds = closestElement === event.target;
 
-    let resultClick = null;
-
-    if (isClickInsideElementBounds) {
-      resultClick = "Hit";
-      let log = `CLICK hit ${Date.now()} ${resultClick} ${closestElementDistance}`;
-      silverKitRemoteLogger.log(log);
-    } else {
-      resultClick = "Miss";
-    }
-
     // Logic that shouldn't be here
 
     if (!isClickInsideElementBounds) {
@@ -100,17 +92,13 @@ window.addEventListener("load", () => {
 
       const distanceConsideredTooFar = 2.2 * smallestBetweenWidthAndHeight;
 
-      console.log(distanceConsideredTooFar);
-      console.log(closestElementDistance);
-      console.log(closestElement.offsetLeft + closestElement.offsetWidth / 2);
-
       if (closestElementDistance > distanceConsideredTooFar) {
-        let log = `CLICK false-miss ${Date.now()} ${resultClick} ${closestElementDistance}`;
-        silverKitRemoteLogger.log(log);
+        // let log = `CLICK false-miss ${Date.now()} ${resultClick} ${closestElementDistance}`;
+        // silverKitRemoteLogger.log(log);
         return;
       }
 
-      let log = `CLICK true-miss ${Date.now()} ${resultClick} ${closestElementDistance}`;
+      let log = `CLICK miss ${Date.now()} ${closestElementDistance}`;
       silverKitRemoteLogger.log(log);
 
       // From here, we have a "valid" missclick.
@@ -119,8 +107,6 @@ window.addEventListener("load", () => {
         closestElement,
         elementsMissClickCountMap.get(closestElement) + 1
       );
-
-      console.log(closestElement.style.width);
 
       // Check if it's part of a click group
       const group = closestElement.dataset.skIntentClickGroup;
