@@ -40,7 +40,11 @@ window.addEventListener("load", () => {
     elementsToObserve.forEach(element => {
       if (element == event.target) {
         shouldAbort = true;
-        let log = `CLICK hit ${Date.now()}`;
+        let log = {
+          type: "click",
+          success: true,
+          timestamp: Date.now()
+        };
         silverKitRemoteLogger.log(log);
       }
     });
@@ -98,7 +102,13 @@ window.addEventListener("load", () => {
         return;
       }
 
-      let log = `CLICK miss ${Date.now()} ${closestElementDistance}`;
+      let log = {
+        type: "click",
+        success: false,
+        timestamp: Date.now(),
+        distanceFromTarget: closestElementDistance
+      };
+
       silverKitRemoteLogger.log(log);
 
       // From here, we have a "valid" missclick.

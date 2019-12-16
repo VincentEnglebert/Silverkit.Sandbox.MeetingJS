@@ -1,17 +1,17 @@
 import axios from "axios";
 import uuid from "uuid/v4";
 
-const url = "https://silverkit-api.silverkit.io/api/logs";
-// const url = "http://localhost:8000/api/logs";
+// const url = "https://silverkit-api.silverkit.io/api/logs";
+const url = "http://localhost:8000/api/logs";
 
 export default class Logger {
-  log(logStr) {
+  log(data) {
     let obj = {
-      content: logStr,
+      content: data,
       uuid: uuid()
     };
 
-    console.log(logStr);
+    console.log(data);
 
     axios.post(url, obj).catch(error => {
       console.log(error);
