@@ -133,6 +133,7 @@ window.addEventListener("load", () => {
 
         if (groupMissClickCountMap.get(group) >= 3) {
           console.log("Group has 3 miss clicks!");
+
           groupMissClickCountMap.set(group, 0);
           // If it is, we update all the group at once
           const groupElements = document.querySelectorAll(
@@ -155,6 +156,14 @@ window.addEventListener("load", () => {
 });
 
 function increaseTextSize(element) {
+  let log = {
+    type: "action",
+    target: element.outerHTML,
+    action: "increaseTextSize",
+    timestamp: Date.now()
+  };
+  silverKitRemoteLogger.log(log);
+
   const style = window
     .getComputedStyle(element, null)
     .getPropertyValue("font-size");
