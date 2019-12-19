@@ -111,28 +111,42 @@ export default {
     },
 
     laterLeft() {
-      if (this.startHour < this.endHour - 1)
+      if (this.startHour < this.endHour - 1) {
         this.start = new moment(this.start).add(1, "hour");
+        this.updateParent();
+      }
     },
     laterRight() {
-      if (this.endHour < this.originalEndHour)
+      if (this.endHour < this.originalEndHour) {
         this.end = new moment(this.end).add(1, "hour");
+        this.updateParent();
+      }
     },
     soonerRight() {
       if (this.startHour + 1 < this.endHour) {
         this.end = new moment(this.end).subtract(1, "hour");
+        this.updateParent();
       }
     },
     soonerLeft() {
       if (this.originalStartHour < this.startHour) {
         this.start = new moment(this.start).subtract(1, "hour");
+        this.updateParent();
       }
+    },
+
+    updateParent() {
+      this.$emit("update", {
+        start: this.start,
+        end: this.end
+      });
     }
   },
 
   created() {
     this.originalStartHour = parseInt(this.startTime.hours());
     this.originalEndHour = parseInt(this.endTime.hours());
+    this.updateParent();
   }
 };
 </script>

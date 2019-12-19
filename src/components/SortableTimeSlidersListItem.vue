@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="bg-white mb-2 py-2 rounded shadow" :class="{'bg-red-200' :removed }">
+    <div class="bg-white mt-1 mb-1 py-2 rounded shadow" :class="{'bg-red-200' :removed }">
       <div class="flex">
         <div class="flex justify-between items-center flex-col border-r border-dashed">
           <button
@@ -32,7 +32,12 @@
               class="capitalize text-gray-900 text-lg my-1"
             >{{ time.start.format('dddd') }} {{ time.start.date() }} {{ time.start.format("MMMM") }}</span>
           </div>
-          <time-slider :startTime="time.start" :endTime="time.end" :allRed="removed"></time-slider>
+          <time-slider
+            @update="update"
+            :startTime="time.start"
+            :endTime="time.end"
+            :allRed="removed"
+          ></time-slider>
         </div>
       </div>
     </div>
@@ -58,8 +63,16 @@ export default {
 
   methods: {
     toggle() {
-      if (this.removed) this.$emit("added", this.time);
-      else this.$emit("removed", this.time);
+      if (this.removed) {
+        this.$emit("added", this.time);
+        this.$emit("update", {
+          start: this.time.start,
+          end: this.time.end
+        });
+      } else {
+        this.$emit("removed", this.time);
+        this.$emit("update", null);
+      }
       this.removed = !this.removed;
     },
 
@@ -67,7 +80,11 @@ export default {
       this.$emit("cloned", this.time);
     },
 
-    handle() {}
+    handle() {},
+
+    update(data) {
+      this.$emit("update", data);
+    }
   },
 
   components: {
