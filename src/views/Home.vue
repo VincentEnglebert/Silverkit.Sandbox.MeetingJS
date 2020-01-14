@@ -100,7 +100,7 @@ export default {
   },
 
   created() {
-    axios.get("https://agenda-api.silverkit.io/api/events").then(response => {
+    axios.get("http://localhost:8000/api/events").then(response => {
       this.events = response.data.data;
     });
   }
