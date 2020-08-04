@@ -1,4 +1,8 @@
-# agenda
+# Contributors
+
+Simon GENIN (@SimonGenin), UNamur Researcher, Silverkit project.
+
+# Documentation
 
 ## Project setup
 ```
